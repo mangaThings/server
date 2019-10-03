@@ -6,7 +6,8 @@ const mongoose = require('mongoose')
 const index = require('./routes')
 const morgan = require('morgan')
 const app = express()
-const PORT = 3000
+const PORT = process.env.PORT
+const errorHandler = require("./middlewares/errorHandler")
 
 app.use(cors())
 app.use(morgan('dev'))
@@ -27,6 +28,7 @@ mongoose.connect('mongodb://localhost:27017/manga-things', {
 
 app.use('/', index)
 
+app.use(errorHandler)
 app.listen(PORT, function(){
-  console.log(`Hello from port PORT`);
+  console.log(`Hello from port ${PORT}`);
 })
