@@ -7,13 +7,13 @@ const index = require('./routes')
 const morgan = require('morgan')
 const app = express()
 const PORT = 3000
-
+const dbatlas ='mongodb+srv://ayusudi:ayusudi@cluster0-acddn.mongodb.net/manga-things?retryWrites=true&w=majority'
 app.use(cors())
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({extended : false}))
 
-mongoose.connect('mongodb://localhost:27017/manga-things', {
+mongoose.connect(dbatlas, {
     useNewUrlParser : true , useUnifiedTopology: true 
 }, function(err){
     if(err) {
