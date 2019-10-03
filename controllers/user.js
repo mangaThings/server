@@ -1,7 +1,7 @@
-const { OAuth2Client } = require("google-auth-library")
-const User = require("../models/user")
-const { generateToken } = require("../helpers/jsonwebtoken")
-const { comparePassword } = require("../helpers/bcryptjs")
+const { OAuth2Client } = require("google-auth-library");
+const User = require("../models/user");
+const { generateToken } = require("../helpers/jsonwebtoken");
+const { comparePassword } = require("../helpers/bcryptjs");
 
 class UserController {
   static register(req, res, next) {
@@ -28,7 +28,7 @@ class UserController {
 
   static login(req, res, next) {
     const { email, password } = req.body;
-    console.log(password)
+    console.log(password);
     User.findOne({
       email
     })
@@ -56,9 +56,7 @@ class UserController {
   }
 
   static googleSignIn(req, res, next) {
-    const client = new OAuth2Client(
-      process.env.CLIENT_ID
-    );
+    const client = new OAuth2Client(process.env.CLIENT_ID);
 
     let payload;
     client
