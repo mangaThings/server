@@ -4,9 +4,9 @@ const translate = require('@k3rn31p4nic/google-translate-api');
 
 class CommentController {
   static create(req, res, next) {
-    const user = '5d95cf50097e573460b64bdf'
-    const mangaId = 4127
-    const { comment } = req.body
+    console.log(req.loggedUser)
+    const user = req.loggedUser._id
+    const { comment, mangaId } = req.body
     let sentiment
     translate(comment, { to: 'en' })
       .then(trans => {
@@ -36,8 +36,12 @@ class CommentController {
 
   static getCommentManga(req, res, next) {
     Comment.find({ mangaId: req.params.id })
+      .populate('user')
+      .sort({
+        createdAt: -1
+      })
       .then(data => {
-        // console.log(data)
+        console.log(data)
         res.status(200).json({
           comments: data
         })
